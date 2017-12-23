@@ -1,4 +1,5 @@
 import express from 'express';
+import mime from 'mime-types';
 import Canvas from 'canvas';
 
 import {
@@ -19,31 +20,21 @@ const app = express();
 const oneOf = (...opts) => opts[Math.floor(opts.length * Math.random())];
 
 app.get('/', (req, res) => {
-  const canvas = new Canvas(505, 720);
-  const context = canvas.getContext('2d');
-
-  drawCard(context, {
+  const canvas = drawCard({
     colour: oneOf(RED, GREEN, BLUE),
     number: oneOf(1, 2, 3),
     fill: oneOf(SOLID, EMPTY, STRIPED),
     shape: oneOf(DIAMOND, OVAL, SQUIGGLE),
   });
 
-  res.end(`
-    <html>
-      <body>
-        <img width="50%" src="${ canvas.toDataURL() }" />
-      </body>
-    </html>
-  `);
+  res.set('Content-Type', mime.lookup('png'));
+
+  const stream = canvas.pngStream();
+  stream.on('data', chunk => res.write(chunk));
+  stream.on('end', () => res.end());
 });
 
 app.listen(3000, (err) => {
   if (err) return console.error(err);
   console.log('Listening on port 3000');
 });
-
-// var canvas = document.getElementById("canvas");
-// canvas.setAttribute('width', 505);
-// canvas.setAttribute('height', 720);
-// var context = canvas.getContext("2d");

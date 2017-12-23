@@ -130,12 +130,17 @@ function drawOutline(ctx) {
   ctx.lineTo(25, 50);
   ctx.bezierCurveTo(25, 35, 35, 25, 50, 25);
 
+  ctx.fillStyle = '#fff';
+  ctx.fill();
   ctx.stroke();
 
   ctx.restore();
 }
 
-export function drawCard(ctx, { number, colour, fill, shape }) {
+export function drawCard({ number, colour, fill, shape }) {
+  const canvas = new Canvas(505, 720);
+  const ctx = canvas.getContext('2d');
+
   drawOutline(ctx);
 
   const yPositions = {
@@ -154,4 +159,6 @@ export function drawCard(ctx, { number, colour, fill, shape }) {
       ctx, { colour, fill, x: 52, y }
     );
   });
+
+  return canvas;
 }
