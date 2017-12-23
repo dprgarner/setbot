@@ -1,7 +1,23 @@
 {
+  "name": "setbot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "canvas": "^1.6.9",
     "canvgc": "^0.1.5",
     "express": "^4.16.2"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.3"
+  },
+  "scripts": {
+    "start": "babel src --out-dir lib && node lib/index.js",
+    "watch": "nodemon -x \"yarn start\" -w src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Garner",
+  "license": "ISC"
 }
