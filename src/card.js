@@ -12,17 +12,6 @@ export const DIAMOND = 0;
 export const OVAL = 1;
 export const SQUIGGLE = 2;
 
-function setFill(ctx, colour, fill) {
-  if (fill === SOLID) {
-    ctx.fillStyle = colour;
-    ctx.fill();
-  } else if (fill === STRIPED) {
-    const pattern = ctx.createPattern(getStripes(colour), 'repeat');
-    ctx.fillStyle = pattern;
-    ctx.fill();
-  }
-}
-
 const cachedStripes = {};
 
 function getStripes(colour) {
@@ -36,14 +25,25 @@ function getStripes(colour) {
   return cachedStripes[colour];
 }
 
+function setFill(ctx, colour, fill) {
+  if (fill === SOLID) {
+    ctx.fillStyle = colour;
+    ctx.fill();
+  } else if (fill === STRIPED) {
+    const pattern = ctx.createPattern(getStripes(colour), 'repeat');
+    ctx.fillStyle = pattern;
+    ctx.fill();
+  }
+}
+
 function drawDiamond(ctx, {
-  colour, 
+  colour,
   fill,
-  x=0, 
-  y=0, 
+  x = 0,
+  y = 0,
 }) {
   ctx.save();
-  
+
   ctx.strokeStyle = colour;
   ctx.lineWidth = 16;
   ctx.beginPath();
@@ -60,10 +60,10 @@ function drawDiamond(ctx, {
 }
 
 function drawOval(ctx, {
-  colour, 
-  fill, 
-  x=0,
-  y=0,
+  colour,
+  fill,
+  x = 0,
+  y = 0,
 }) {
   ctx.save();
 
@@ -89,8 +89,8 @@ function drawOval(ctx, {
 function drawSquiggle(ctx, {
   colour,
   fill,
-  x=0,
-  y=0,
+  x = 0,
+  y = 0,
 }) {
   ctx.save();
 
@@ -137,7 +137,9 @@ function drawOutline(ctx) {
   ctx.restore();
 }
 
-export function drawCard({ number, colour, fill, shape }) {
+export function drawCard({
+  number, colour, fill, shape,
+}) {
   const canvas = new Canvas(505, 720);
   const ctx = canvas.getContext('2d');
 
@@ -154,10 +156,12 @@ export function drawCard({ number, colour, fill, shape }) {
     [SQUIGGLE]: drawSquiggle,
   };
 
-  (yPositions[number] || []).forEach(y => {
-    shapeFunctions[shape] && shapeFunctions[shape](
-      ctx, { colour, fill, x: 52, y }
-    );
+  (yPositions[number] || []).forEach((y) => {
+    if (shapeFunctions[shape]) {
+      shapeFunctions[shape](ctx, {
+        colour, fill, x: 52, y,
+      });
+    }
   });
 
   return canvas;
