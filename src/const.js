@@ -10,6 +10,6 @@ export const DIAMOND = 0;
 export const OVAL = 1;
 export const SQUIGGLE = 2;
 
-export const letters = [
+export const LETTERS = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'
 ];

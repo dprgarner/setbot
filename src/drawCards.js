@@ -10,7 +10,7 @@ import {
   DIAMOND,
   OVAL,
   SQUIGGLE,
-  letters,
+  LETTERS,
 } from './const';
 
 const cachedStripes = {};
@@ -138,9 +138,7 @@ function drawOutline(ctx) {
   ctx.restore();
 }
 
-function drawCard({
-  number, colour, fill, shape,
-}) {
+function drawCard({ number, colour, fill, shape }) {
   const canvas = new Canvas(505, 720);
   const ctx = canvas.getContext('2d');
 
@@ -185,8 +183,8 @@ export function drawCards(cards) {
 
     if (!cards[i].faded) {
       ctx.font = '30px Arial';
-      ctx.fillText(letters[i], x + 21, y + 50);
-      ctx.strokeText(letters[i], x + 21, y + 50);
+      ctx.fillText(LETTERS[i], x + 21, y + 50);
+      ctx.strokeText(LETTERS[i], x + 21, y + 50);
     }
   }
 

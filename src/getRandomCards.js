@@ -8,24 +8,38 @@ import {
   DIAMOND,
   OVAL,
   SQUIGGLE,
-  letters,
 } from './const';
 
-const oneOf = (...opts) => opts[Math.floor(opts.length * Math.random())];
+const FILLS = [EMPTY, SOLID, STRIPED];
+const COLOURS = [RED, GREEN, BLUE];
+const SHAPES = [DIAMOND, OVAL, SQUIGGLE];
+const NUMBERS = [1, 2, 3];
 
-const randomCard = () => ({
-  colour: oneOf(RED, GREEN, BLUE),
-  number: oneOf(1, 2, 3),
-  fill: oneOf(SOLID, EMPTY, STRIPED),
-  shape: oneOf(DIAMOND, OVAL, SQUIGGLE),
-  faded: oneOf(true, false),
-});
+function getRandomNumbers() {
+  const numbers = {};
+  while (Object.keys(numbers).length < 12) {
+    const n = Math.floor(Math.random() * 81);
+    numbers[n] = true;
+  }
+  const ordered = Object.keys(numbers);
+  const shuffled = [];
+  while (ordered.length) {
+    const n = Math.floor(Math.random() * ordered.length);
+    shuffled.unshift(...ordered.splice(n, 1));
+  }
+  return shuffled;
+}
+
+function toCard(n) {
+  const b3String = Number(n).toString(3).padStart(4, '0');
+  return {
+    colour: COLOURS[parseInt(b3String[0], 10)],
+    number: NUMBERS[parseInt(b3String[1], 10)],
+    shape: SHAPES[parseInt(b3String[2], 10)],
+    fill: FILLS[parseInt(b3String[3], 10)],
+  };
+}
 
 export function getRandomCards() {
-  const cards = [];
-  for (let i = 0; i < 12; i++) {
-    cards.push(randomCard());
-  }
-
-  return cards;
+  return getRandomNumbers().map(toCard);
 }
