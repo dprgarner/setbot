@@ -15,12 +15,16 @@
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "jest": "^22.0.4",
     "nodemon": "^1.14.3"
   },
   "scripts": {
     "start": "babel src --out-dir lib && node lib/index.js",
     "watch": "nodemon -x \"yarn start\" -w src",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.6.0"
   },
   "author": "David Garner",
   "license": "ISC"
