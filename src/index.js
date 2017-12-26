@@ -2,8 +2,8 @@ import express from 'express';
 import mime from 'mime-types';
 import Canvas from 'canvas';
 
-import { drawCards } from './drawCards';
-import { getRandomCards } from './getRandomCards';
+import drawCards from './drawCards';
+import getRandomCards from './getRandomCards';
 
 const app = express();
 

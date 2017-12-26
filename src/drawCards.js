@@ -166,7 +166,7 @@ function drawCard({ number, colour, fill, shape }) {
   return canvas;
 }
 
-export function drawCards(cards) {
+export default function drawCards(cards) {
   const canvas = new Canvas(
     Math.floor((25 + (252 * 4)) / 2),
     Math.floor((25 + (360 * 3)) / 2),
