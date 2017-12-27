@@ -8,7 +8,8 @@
     "babel-preset-env": "^1.6.1",
     "canvas": "^1.6.9",
     "express": "^4.16.2",
-    "mime-types": "^2.1.17"
+    "mime-types": "^2.1.17",
+    "twit": "^2.2.9"
   },
   "devDependencies": {
     "canvgc": "^0.1.5",

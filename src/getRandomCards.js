@@ -1,21 +1,5 @@
-import {
-  EMPTY,
-  SOLID,
-  STRIPED,
-  RED,
-  GREEN,
-  BLUE,
-  DIAMOND,
-  OVAL,
-  SQUIGGLE,
-  LETTERS,
-} from './const';
+import { LETTERS } from './const';
 import findSets from './findSets';
-
-const NUMBERS = [1, 2, 3];
-const COLOURS = [RED, GREEN, BLUE];
-const SHAPES = [DIAMOND, OVAL, SQUIGGLE];
-const FILLS = [EMPTY, SOLID, STRIPED];
 
 function getRandomNumbers() {
   const numbers = {};
@@ -32,16 +16,6 @@ function getRandomNumbers() {
   return shuffled;
 }
 
-function toCard(n) {
-  const b3String = Number(n).toString(3).padStart(4, '0');
-  return {
-    number: NUMBERS[parseInt(b3String[0], 10)],
-    colour: COLOURS[parseInt(b3String[1], 10)],
-    shape: SHAPES[parseInt(b3String[2], 10)],
-    fill: FILLS[parseInt(b3String[3], 10)],
-  };
-}
-
 // let set = [LETTERS[i], LETTERS[j], LETTERS[k]];
 // // Number should be increasing; letter order otherwise.
 // if (strings[i][0] > strings[j][0] || strings[j][0] > strings[k][0]) {
@@ -56,6 +30,5 @@ export default function getRandomCards() {
     cards = getRandomNumbers();
     sets = findSets(cards);
   }
-  console.log(sets);
-  return cards.map(toCard);
+  return { cards, sets };
 }

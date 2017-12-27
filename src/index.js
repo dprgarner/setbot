@@ -8,8 +8,9 @@ import getRandomCards from './getRandomCards';
 const app = express();
 
 app.get('/', (req, res) => {
-  const cards = getRandomCards();
+  const { cards, sets } = getRandomCards();
   const canvas = drawCards(cards);
+  console.log(sets);
 
   res.set('Content-Type', mime.lookup('png'));
 
@@ -17,6 +18,17 @@ app.get('/', (req, res) => {
   stream.on('data', chunk => res.write(chunk));
   stream.on('end', () => {
     res.end();
+  });
+});
+
+import startGame from './startGame';
+
+app.get('/tweet', (req, res) => {
+  startGame()
+  .then(() => res.end('done'))
+  .catch((err) => {
+    console.error(err);
+    res.status(500).end(err.message);
   });
 });
 

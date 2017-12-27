@@ -166,7 +166,23 @@ function drawCard({ number, colour, fill, shape }) {
   return canvas;
 }
 
-export default function drawCards(cards) {
+const NUMBERS = [1, 2, 3];
+const COLOURS = [RED, GREEN, BLUE];
+const SHAPES = [DIAMOND, OVAL, SQUIGGLE];
+const FILLS = [EMPTY, SOLID, STRIPED];
+
+function toCard(n) {
+  const b3String = Number(n).toString(3).padStart(4, '0');
+  return {
+    number: NUMBERS[parseInt(b3String[0], 10)],
+    colour: COLOURS[parseInt(b3String[1], 10)],
+    shape: SHAPES[parseInt(b3String[2], 10)],
+    fill: FILLS[parseInt(b3String[3], 10)],
+  };
+}
+
+export default function drawCards(cardNumbers) {
+  const cards = cardNumbers.map(toCard);
   const canvas = new Canvas(
     Math.floor((25 + (252 * 4)) / 2),
     Math.floor((25 + (360 * 3)) / 2),
@@ -188,5 +204,7 @@ export default function drawCards(cards) {
     }
   }
 
-  return canvas;
+  const resizedCanvas = new Canvas(508, 508);
+  resizedCanvas.getContext('2d').drawImage(canvas, 17, 0, 475, 508);
+  return resizedCanvas;
 }
